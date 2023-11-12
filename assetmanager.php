@@ -11,6 +11,20 @@
  * Author URI:        https://author.example.com/
  * License:           GPL v2 or later
  */
+
+/**
+ * Constants for working with URL and paths of the plugin
+ */
+define('WORKING_PATH', trailingslashit(plugin_dir_path(__FILE__)));
+define('WORKING_URL', trailingslashit(plugin_dir_url(__FILE__)) );
+
+add_action('admin_enqueue_scripts', 'reactScripts');
+
+function reactScripts() {
+	wp_enqueue_script('wp-react-kickoff', WORKING_URL.'assets/build/index.bundle.js',
+	['jquery', 'wp-element'], wp_rand(), true );
+}
+
 add_action('admin_menu', 'adminMenuFunction');
 
 

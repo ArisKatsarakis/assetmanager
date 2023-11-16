@@ -15,10 +15,14 @@
 /**
  * Constants for working with URL and paths of the plugin
  */
-
  defined( 'ABSPATH' ) or die( 'Hey, what are you doing here? You silly human!' );
+ 
+if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
+	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+}
+use Serv\AssetRepository;
 
-class AssetManager {
+ class AssetManager {
 
 	function __construct()
 	{
@@ -31,14 +35,11 @@ class AssetManager {
 	}
 	
 	function activate() {
-		// AssetRepository.create_required_tables();
+		AssetRepository::create_required_tables();
 	}
 
 	function deactivate() {
-		global $wpdb;
-		$wpdb->query("
-			DROP TABLE wp_asset_customers
-		");
+		
 
 	}
 

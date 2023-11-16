@@ -1,0 +1,18 @@
+{
+    "name": "ariskatsarakis/assetmanager",
+    "description": "An Asset Manager for Accurate Engineering",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "ArisKatsarakis",
+            "email": "ariskatsarakis@hotmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Serv\\": "./services",
+            "Adm\\": "./admin"
+        }
+    }
+}

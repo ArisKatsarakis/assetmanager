@@ -24,6 +24,17 @@ class AdminView {
 		
 	}
 
+	function activate() {
+		
+		flush_rewrite_rules();
+	}
+
+
+	function deactivate() {
+		
+		flush_rewrite_rules();
+	}
+
 }
 
 if ( class_exists('AdminView') ) {

@@ -1,21 +1,16 @@
-import { useEffect, useState } from "react";
-import { Button, Container, Table } from "react-bootstrap";
+import { FormEvent, useEffect, useState } from "react";
+import { Button, Col, Container, Form, InputGroup, Row, Table } from "react-bootstrap";
 import { Customer } from "../Interfaces/interfaces";
 import axios from "axios";
-import {CustomerForm} from './CustomerForm';
 export const Customers = () => {
     const [customers, setCustomers] = useState<Customer[]>([])
-    const  [showCustomerForm, setShowCustomerForm]= useState<boolean>(false);
+    const [showCustomerForm, setShowCustomerForm] = useState<boolean>(false);
     const [message, setMessage] = useState<string>('');
-    const [fetchedCustomer, setFetchedCustomer] = useState<Customer>(
-        {
-            "company_id": "10001",
-            "company_name": "Company",
-            "company_email": "company@email.com",
-            "company_afm": "157289051",
-            "comapny_address": "Tassou Issaak 4 "
-        }
-    );
+    const [companyName, setCompanyName] = useState<string>('');
+    const [companyAFM, setCompanyAFM] = useState<string>('');
+    const [companyEmail, setCompanyEmail] = useState<string>('');
+    const [companyAddress, setCompanyAddress] = useState<string>('');
+    const [companyId, setCompanyId] = useState<string>('');
     useEffect(
         () => {
             getCustomersFromApi();
@@ -30,27 +25,55 @@ export const Customers = () => {
 
     }
     const showHideCustomerForm = () => {
-            setShowCustomerForm(!showCustomerForm);
+        setShowCustomerForm(!showCustomerForm);
     }
 
-    const editCustomer = async (event: React.MouseEvent<HTMLElement> ) => {
+    const editCustomer = async (event: React.MouseEvent<HTMLElement>) => {
         //@ts-ignore
         const customerId = event.currentTarget.value;
         const results = await fetchCustomerByApi(customerId);
+        setShowCustomerForm(!showCustomerForm);
     }
 
-    const fetchCustomerByApi = async (customerId :string) => {
+    const fetchCustomerByApi = async (customerId: string) => {
         return await axios.get(`http://localhost/wp-json/assetmanagerplugin/v1/customers/${customerId}`);
     }
 
-    const deleteCustomerByIdApi = (customerId : string) => {
+    const deleteCustomerByIdApi = (customerId: string) => {
         console.log(customerId);
     }
-    const deleteCustomer = ( event: React.MouseEvent<HTMLElement> ) => {
+    const deleteCustomer = (event: React.MouseEvent<HTMLElement>) => {
         //@ts-ignore
         const customerId = event.currentTarget.value;
         deleteCustomerByIdApi(customerId)
     }
+
+
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+
+        event.preventDefault();
+        if (companyId === '') {
+            insertNewCustomer();
+        } else {
+            // updateCustomer();
+        }
+    }
+
+    const insertNewCustomer = () => {
+        const customerData = {
+            companyName: companyName, 
+            companyAfm: companyAFM,
+            companyEmail: companyEmail,
+            companyAddress: companyAddress
+        };
+        console.log(customerData);
+        createNewCustomerApi(customerData);
+    }
+
+    const createNewCustomerApi = async (requestData: object) => {
+       const response = await axios.post('http://localhost/wp-json/assetmanagerplugin/v1/customers', requestData);
+    }
+
     return (
         <Container>
             <Table striped bordered >
@@ -87,10 +110,73 @@ export const Customers = () => {
                 </tbody>
             </Table>
             <Button onClick={showHideCustomerForm} variant="outline-dark"> Add New Customer </Button>
-           { showCustomerForm && <CustomerForm customer={fetchedCustomer} /> }
-           {message}
+            {showCustomerForm &&
+                <Form onSubmit={handleSubmit}>
+                    <Row className="mb-3">
+                        <Form.Group as={Col} md="7" controlId="validationCustom01">
+                            <Form.Label>Company Name</Form.Label>
+                            <Form.Control
+                                required
+                                type="text"
+                                placeholder="Company Name"
+                                value={companyName}
+                                onChange={event => (setCompanyName(event.currentTarget.value))}
+                            />
+                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group as={Col} md="5" controlId="validationCustomUsername">
+                            <Form.Label>Company Email</Form.Label>
+                            <InputGroup hasValidation>
+                                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Email"
+                                    aria-describedby="inputGroupPrepend"
+                                    required
+                                    value={companyEmail}
+                                    onChange={event => (setCompanyEmail(event.currentTarget.value))}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Type a proper email
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                        <Form.Group as={Col} md="6" controlId="validationCustom03">
+                            <Form.Label>Company AFM</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Α.Φ,Μ Εταιρίας"
+                                required
+                                value={companyAFM}
+                                onChange={event => (setCompanyAFM(event.currentTarget.value))}
+
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Please provide a valid city.
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group as={Col} md="6" controlId="validationCustom04">
+                            <Form.Label>Company Address</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Address"
+                                required 
+                                value={companyAddress}
+                                onChange={event => {setCompanyAddress(event.currentTarget.value)}}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Please provide a valid state.
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                    </Row>
+                    <Button type="submit">Submit form</Button>
+                </Form>
+            }
+            {message}
         </Container>
     );
 
-    
+
 };

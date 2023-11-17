@@ -2,6 +2,7 @@
 
 namespace Serv; 
 use WP_REST_Response;
+use Serv\AssetRepository;
 class AssetController {
 
 
@@ -18,7 +19,25 @@ class AssetController {
             'permission_callback' => [ $this, 'callback']
         ] 
         );
+        register_rest_route( 'assetmanagerplugin/v1', '/customers',
+        [
+            'methods' => 'POST',
+            'callback' => [ $this, 'createCustomer'],
+            'permission_callback' => [ $this, 'callback']
+        ] 
+        );
     }
+
+    function createCustomer ( $request ) {
+        $data = $request->get_body();
+        $jsonData = json_decode($data, true);
+        if ($data && !empty($data) ) {
+            AssetRepository::create_new_customer($jsonData);
+            return new WP_REST_Response($jsonData, 200);
+        }else {
+            return new WP_Error('no_data', 'No data received', array('status' => 400));
+        }
+    } 
 
     function getCustomers ( $request ) {
         global $wpdb;

@@ -72,6 +72,7 @@ export const Customers = () => {
 
     const createNewCustomerApi = async (requestData: object) => {
        const response = await axios.post('http://localhost/wp-json/assetmanagerplugin/v1/customers', requestData);
+       console.log(response.data);
     }
 
     return (

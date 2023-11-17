@@ -28,4 +28,16 @@ class AssetRepository {
     }
 
 
+    public static function create_new_customer( $customerJson ) {
+        global $wpdb;
+        $clientsTableName = $wpdb->prefix . 'customers';
+        $result = $wpdb->query(
+            "
+            INSERT INTO `wp_customers`( `company_name`, `company_email`, `company_afm`, `comapny_address`) VALUES ('".$customerJson['companyName']."','".$customerJson['companyEmail']."','".$customerJson['companyAfm']."','".$customerJson['companyAddress']."')
+            "
+        );
+
+    }
+
+
 }

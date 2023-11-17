@@ -13,7 +13,7 @@ class AssetRepository {
             company_afm     varchar(10),
             comapny_address varchar(255), 
             PRIMARY KEY (company_id)
-        ) $charsetCollate";
+        ) $charsetCollate ";
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta($sql);
         
@@ -21,12 +21,11 @@ class AssetRepository {
 
     public static function delete_required_tables() {
         global $wpdb;
-        $charsetCollate = $wpdb->get_charset_colate();
         $clientsTableName = $wpdb->prefix . 'customers';
 		$wpdb->query("
 			DROP TABLE IF EXISTS $clientsTableName
 		");
     }
 
-    
+
 }

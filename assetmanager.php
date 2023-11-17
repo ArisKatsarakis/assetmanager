@@ -21,7 +21,7 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
 use Serv\AssetRepository;
-
+use Serv\AssetController;
  class AssetManager {
 
 	function __construct()
@@ -30,8 +30,9 @@ use Serv\AssetRepository;
 		define('WORKING_URL', trailingslashit(plugin_dir_url(__FILE__)) );
 	   	add_action('admin_menu', [$this, 'adminMenuFunction']);
 		add_action('admin_enqueue_scripts', [$this, 'reactScripts'] );
-		
-		
+		$controller = new AssetController();
+		add_action('rest_api_init', [$controller, 'create_rest_routes']);
+
 	}
 	
 	function activate() {

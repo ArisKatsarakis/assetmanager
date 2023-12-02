@@ -8,9 +8,7 @@ export const App = () => {
         return (
             <Container>
                 <Header />
-                <Row>
-                    <Customers />
-                </Row>
+                 <Customers />
 
             </Container>
 

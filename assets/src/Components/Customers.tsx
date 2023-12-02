@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { Button, Col, Container, Form, InputGroup, Row, Table } from "react-bootstrap";
 import { Customer } from "../Interfaces/interfaces";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export const Customers = () => {
     const [customers, setCustomers] = useState<Customer[]>([])
     const [showCustomerForm, setShowCustomerForm] = useState<boolean>(false);
@@ -73,11 +74,12 @@ export const Customers = () => {
     const createNewCustomerApi = async (requestData: object) => {
        const response = await axios.post('http://localhost/wp-json/assetmanagerplugin/v1/customers', requestData);
        console.log(response.data);
+       window.location.reload();
     }
 
     return (
         <Container>
-            <Table striped bordered >
+            <Table striped bordered responsive >
                 <thead>
                     <tr>
                         <th>ID</th>

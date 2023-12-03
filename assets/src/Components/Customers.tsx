@@ -3,6 +3,7 @@ import { Button, Col, Container, Form, InputGroup, Row, Table } from "react-boot
 import { Customer } from "../Interfaces/interfaces";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { urls } from "../utils/variables";
 export const Customers = () => {
     const [customers, setCustomers] = useState<Customer[]>([])
     const [showCustomerForm, setShowCustomerForm] = useState<boolean>(false);
@@ -19,7 +20,7 @@ export const Customers = () => {
         , []
     );
     const getCustomersFromApi = async () => {
-        const customers = await axios.get('http://localhost/wp-json/assetmanagerplugin/v1/customers');
+        const customers = await axios.get(urls.customers);
         console.log(customers.data);
         //@ts-ignore
         setCustomers(customers.data);
@@ -72,7 +73,7 @@ export const Customers = () => {
     }
 
     const createNewCustomerApi = async (requestData: object) => {
-       const response = await axios.post('http://localhost/wp-json/assetmanagerplugin/v1/customers', requestData);
+       const response = await axios.post(urls.customers, requestData);
        console.log(response.data);
        window.location.reload();
     }

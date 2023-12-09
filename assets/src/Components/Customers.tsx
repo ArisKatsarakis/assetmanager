@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Button, Col, Container, Form, InputGroup, Row, Table } from "react-bootstrap";
-import { Customer } from "../Interfaces/interfaces";
+import { Customer, CustomerPromise } from "../Interfaces/interfaces";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { urls } from "../utils/variables";
@@ -33,7 +33,13 @@ export const Customers = () => {
     const editCustomer = async (event: React.MouseEvent<HTMLElement>) => {
         //@ts-ignore
         const customerId = event.currentTarget.value;
-        const results = await fetchCustomerByApi(customerId);
+        const results : CustomerPromise = await fetchCustomerByApi(customerId);
+        console.log(results);
+        setCompanyAFM(results.data[0].company_afm);
+        setCompanyAddress(results.data[0].comapny_address);
+        setCompanyEmail(results.data[0].company_email);
+        setCompanyName(results.data[0].company_name);
+        setCompanyId(results.data[0].company_id);
         setShowCustomerForm(!showCustomerForm);
     }
 
@@ -57,6 +63,7 @@ export const Customers = () => {
         if (companyId === '') {
             insertNewCustomer();
         } else {
+            console.log('updating');
             // updateCustomer();
         }
     }

@@ -6,4 +6,7 @@ export interface Customer {
     "comapny_address": string;
 }
 
-
+export interface CustomerPromise {
+    data : [ Customer ];
+    status: number;
+}

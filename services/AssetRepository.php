@@ -39,5 +39,14 @@ class AssetRepository {
 
     }
 
+    public static function updateCustomer($customerData) {
+        global $wpdb;
+        $clientsTableName = $wpdb->prefix . 'customers';
+        $updatedData = [
+            'company_name' => $customerData['company_name']
+        ];
+        $wpdb->update($clientsTableName, $updatedData, ['company_id'=> $customerData['company_id']]);
+    }
+
 
 }

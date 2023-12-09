@@ -26,7 +26,25 @@ class AssetController {
             'permission_callback' => [ $this, 'callback']
         ] 
         );
+        register_rest_route( 'assetmanagerplugin/v1', '/customers/(?P<id>[a-zA-Z0-9-]+)',
+        [
+            'methods' => 'PUT',
+            'callback' => [ $this, 'updateCustomer'],
+            'permission_callback' => [ $this, 'callback']
+        ] 
+        );
     }
+
+    function updateCustomer( $request ) {
+        global $wpdb;
+        $data = $request->get_body();
+        $jsonData = json_decode($data, true);
+        $id = $request['id'];
+        AssetRepository::updateCustomer($jsonData);
+        var_dump($jsonData);
+        return ['id' => $id];
+    }
+
 
     function createCustomer ( $request ) {
         $data = $request->get_body();

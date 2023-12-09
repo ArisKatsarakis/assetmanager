@@ -56,7 +56,23 @@ export const Customers = () => {
         deleteCustomerByIdApi(customerId)
     }
 
+    const updateCustomer  =  () => {
+        updateCustomerByIdApi();
+        
+    }
 
+    const updateCustomerByIdApi = async () => {
+        const updatedData = {
+            "company_id": companyId,
+            "company_name": companyName,
+            "company_email": companyEmail,
+            "company_afm": companyAFM,
+            "comapny_address": companyAddress
+        };
+        const result = await axios.put(urls.customers+"/"+companyId, updatedData);
+        console.log(result);
+        window.location.reload();        
+    }
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 
         event.preventDefault();
@@ -64,7 +80,7 @@ export const Customers = () => {
             insertNewCustomer();
         } else {
             console.log('updating');
-            // updateCustomer();
+            updateCustomer();
         }
     }
 

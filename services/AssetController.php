@@ -33,6 +33,20 @@ class AssetController {
             'permission_callback' => [ $this, 'callback']
         ] 
         );
+
+        register_rest_route( 'assetmanagerplugin/v1', '/customers/(?P<id>[a-zA-Z0-9-]+)',
+        [
+            'methods' => 'DELETE',
+            'callback' => [ $this, 'deleteCustomerById'],
+            'permission_callback' => [ $this, 'callback']
+        ] 
+        );
+    }
+
+    function deleteCustomerById( $request )  {
+        $customerId = $request['id'];
+        AssetRepository::deleteCustomerById($customerId);
+
     }
 
     function updateCustomer( $request ) {

@@ -39,6 +39,14 @@ class AssetRepository {
 
     }
 
+    public static function deleteCustomerById($customerId)  {
+        global $wpdb; 
+        $clientsTableName = $wpdb->prefix. 'customers';
+        $wpdb->delete($clientsTableName, [
+            'company_id' => $customerId
+        ]);
+    }
+
     public static function updateCustomer($customerData) {
         global $wpdb;
         $clientsTableName = $wpdb->prefix . 'customers';

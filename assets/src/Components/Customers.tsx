@@ -44,12 +44,16 @@ export const Customers = () => {
     }
 
     const fetchCustomerByApi = async (customerId: string) => {
-        return await axios.get(`http://localhost/wp-json/assetmanagerplugin/v1/customers/${customerId}`);
+        return await axios.get(`${urls.customers}/${customerId}`);
     }
 
-    const deleteCustomerByIdApi = (customerId: string) => {
+    const deleteCustomerByIdApi = async (customerId: string) => {
         console.log(customerId);
+        const result = await axios.delete(urls.customers+'/'+customerId);
+        console.log(result);
+        window.location.reload(); 
     }
+    
     const deleteCustomer = (event: React.MouseEvent<HTMLElement>) => {
         //@ts-ignore
         const customerId = event.currentTarget.value;

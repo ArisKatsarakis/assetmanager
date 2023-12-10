@@ -6,7 +6,24 @@ export interface Customer {
     "comapny_address": string;
 }
 
+export interface Risk {
+    "tool_id": string;
+    "tool_name": string;
+}
+
 export interface CustomerPromise {
     data : [ Customer ];
+    status: number;
+}
+
+export interface RiskCategory {
+    "category_id":      string;
+    "category_name":    string;
+    "report":           string;
+    "invoice" :         string;
+}
+
+export interface RiskCategoryPromise {
+    data: [RiskCategory];
     status: number;
 }

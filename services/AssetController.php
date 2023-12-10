@@ -3,6 +3,7 @@
 namespace Serv; 
 use WP_REST_Response;
 use Serv\AssetRepository;
+use Serv\RiskController;
 class AssetController {
 
 
@@ -41,6 +42,8 @@ class AssetController {
             'permission_callback' => [ $this, 'callback']
         ] 
         );
+        $risk_controller = new RiskController();
+        $risk_controller->create_risk_routes();
     }
 
     function deleteCustomerById( $request )  {

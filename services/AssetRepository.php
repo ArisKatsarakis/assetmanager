@@ -1,5 +1,8 @@
 <?php
 namespace Serv;
+use Ent\RiskCategory;
+use Ent\Risk;
+use Ent\Assesment;
 class AssetRepository {
 
     public static function  create_required_tables() {
@@ -16,8 +19,11 @@ class AssetRepository {
         ) $charsetCollate ";
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta($sql);
-        
+        RiskCategory::create_risk_category_table();
+        Risk::create_risk_table();
+        Assesment::create_assesment_table();
     }
+
 
     public static function delete_required_tables() {
         global $wpdb;

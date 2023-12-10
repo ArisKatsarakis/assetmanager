@@ -12,7 +12,8 @@
     "autoload": {
         "psr-4": {
             "Serv\\": "./services",
-            "Adm\\": "./admin"
+            "Adm\\": "./admin",
+            "Ent\\": "./Entities"
         }
     }
 }

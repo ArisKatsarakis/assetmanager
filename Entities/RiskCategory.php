@@ -18,6 +18,14 @@ class RiskCategory {
         dbDelta($sql);
     }
 
+
+    public static function create_risk_category($category) {
+        global $wpdb;
+        $categoriesTable = $wpdb->prefix . 'risk_category';
+        $sql = "INSERT INTO $categoriesTable (category_name, report, invoice ) VALUES ('".$category['category_name']."', ".$category['report'].", ".$category['invoice'].") ";
+        $wpdb->query($sql);
+    }
+
     public static function get_all_categories() {
         global $wpdb;
         $charsetCollate = $wpdb->get_charset_collate();

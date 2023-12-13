@@ -26,6 +26,13 @@ class RiskCategory {
         $wpdb->query($sql);
     }
 
+    public static function get_risk_category_by_id($id) {
+        global $wpdb;
+        $categoriesTable = $wpdb->prefix . 'risk_category';
+        $sql = "SELECT * FROM $categoriesTable where category_id = $id ";
+        return $wpdb->get_results($sql);
+    }
+
     public static function get_all_categories() {
         global $wpdb;
         $charsetCollate = $wpdb->get_charset_collate();

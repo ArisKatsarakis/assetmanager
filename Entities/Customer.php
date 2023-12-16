@@ -11,6 +11,8 @@ class Customer {
             company_email   varchar(255),
             company_afm     varchar(10),
             comapny_address varchar(255), 
+            mobile varchar(255), 
+            phone varchar(255), 
             PRIMARY KEY (company_id)
         ) $charsetCollate ";
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php' );

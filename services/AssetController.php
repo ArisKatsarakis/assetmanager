@@ -67,8 +67,7 @@ class AssetController {
         $data = $request->get_body();
         $jsonData = json_decode($data, true);
         if ($data && !empty($data) ) {
-            AssetRepository::create_new_customer($jsonData);
-            return new WP_REST_Response($jsonData, 200);
+            return new WP_REST_Response( AssetRepository::create_new_customer($jsonData), 200);
         }else {
             return new WP_Error('no_data', 'No data received', array('status' => 400));
         }

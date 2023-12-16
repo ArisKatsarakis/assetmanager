@@ -26,11 +26,14 @@ class AssetRepository {
     public static function create_new_customer( $customerJson ) {
         global $wpdb;
         $clientsTableName = $wpdb->prefix . 'customers';
+        $query =  "
+        INSERT INTO   $clientsTableName ( `company_name`, `company_email`, `company_afm`, `comapny_address` , `mobile`, `phone` ) VALUES ('".$customerJson['companyName']."','".$customerJson['companyEmail']."','".$customerJson['companyAfm']."','".$customerJson['companyAddress']."', '".$customerJson['mobile']."', '".$customerJson['phone']."' )
+        ";
         $result = $wpdb->query(
-            "
-            INSERT INTO `wp_customers`( `company_name`, `company_email`, `company_afm`, `comapny_address`) VALUES ('".$customerJson['companyName']."','".$customerJson['companyEmail']."','".$customerJson['companyAfm']."','".$customerJson['companyAddress']."')
-            "
+            $query
         );
+
+        return $result;
 
     }
 
@@ -46,7 +49,12 @@ class AssetRepository {
         global $wpdb;
         $clientsTableName = $wpdb->prefix . 'customers';
         $updatedData = [
-            'company_name' => $customerData['company_name']
+            'company_name' => $customerData['company_name'],
+            'company_email'  => $customerData['company_email'],
+            'company_afm'  =>   $customerData['company_afm'],
+            'comapny_address' => $customerData['comapny_address'],
+            'mobile' => $customerData['mobile'],
+            'phone' => $customerData['phone'],
         ];
         $wpdb->update($clientsTableName, $updatedData, ['company_id'=> $customerData['company_id']]);
     }

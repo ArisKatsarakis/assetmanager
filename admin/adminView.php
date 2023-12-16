@@ -19,6 +19,9 @@ class AdminView {
 			<div id="asset-admin">
 				Hello from admin
 			</div>
+			<div>
+				
+			</div>
 		</div
 		<?php
 		

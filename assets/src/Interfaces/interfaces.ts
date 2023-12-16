@@ -4,6 +4,8 @@ export interface Customer {
     "company_email": string;
     "company_afm": string;
     "comapny_address": string;
+    "mobile": string;
+    "phone": string;
 }
 
 export interface Risk {

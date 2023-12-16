@@ -29,7 +29,7 @@ export const RiskCategoryForm = () => {
                         type="switch"
                         id="custom-switch"
                         value={invoice}
-                        onChange={event => setInvoice(parseInt(event.currentTarget.value))}
+                        onChange={event => setInvoice(event.currentTarget.value)}
                         label="Invoice"
                     />
                     <Form.Switch // prettier-ignore

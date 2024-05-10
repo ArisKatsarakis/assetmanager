@@ -91,29 +91,28 @@ class AssetManager
     );
   }
 
-  function assets_sub_menu()
+  function customer_sub_menu()
   {
 ?>
     <div class="wrap">
-      <div id="assets-react"> </div>
-    </div>
-  <?php
-  }
-
-  function customer_sub_menu()
-  {
-  ?>
-    <div class="wrap">
       <div id="customer-react"> hello from sub menu page <div>
         </div>
+      <?php
+    }
+    function assets_sub_menu()
+    {
+      ?>
+        <div class="wrap">
+          <div id="assets-react"> </div>
+        </div>
     <?php
+    }
   }
-}
 
-if (class_exists('AssetManager')) {
-  $assetManager = new AssetManager();
-}
+  if (class_exists('AssetManager')) {
+    $assetManager = new AssetManager();
+  }
 
-register_activation_hook(__FILE__, [$assetManager, 'activate']);
+  register_activation_hook(__FILE__, [$assetManager, 'activate']);
 
-register_deactivation_hook(__FILE__, [$assetManager, 'deactivate']);
+  register_deactivation_hook(__FILE__, [$assetManager, 'deactivate']);

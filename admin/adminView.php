@@ -1,18 +1,8 @@
 <?php
 
-/**
- * 
- * <!-- <div class="wrap">
-	<div id="asset-admin">
-		Hello from admin
-	</div>
-	</div> -->
- * 
- * 
- */
 
 defined('ABSPATH') or die('Hey, you can go away ?');
-class AdminView
+class adminView
 {
   function __construct()
   {
@@ -21,27 +11,24 @@ class AdminView
       <div id="asset-admin">
         Hello from admin
       </div>
-      <div>
+    </div>
+<?php
+  }
 
-      </div>
-    </div <?php
+  function activate()
+  {
 
-        }
-
-        function activate()
-        {
-
-          flush_rewrite_rules();
-        }
+    flush_rewrite_rules();
+  }
 
 
-        function deactivate()
-        {
+  function deactivate()
+  {
 
-          flush_rewrite_rules();
-        }
-      }
+    flush_rewrite_rules();
+  }
+}
 
-      if (class_exists('AdminView')) {
-        $adminPlugin = new AdminView();
-      }
+if (class_exists('AdminView')) {
+  $adminPlugin = new AdminView();
+}

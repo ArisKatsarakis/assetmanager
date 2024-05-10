@@ -2,18 +2,28 @@ import { Button, Form } from "react-bootstrap";
 import { RiskCategory } from "../Interfaces/interfaces";
 import FormCheckInput from "react-bootstrap/esm/FormCheckInput";
 import { useState, FormEvent } from "react";
+import {createCategory} from "../utils/Client";
 
 
 // category: RiskCategory
 export const RiskCategoryForm = () => {
     const [categoryName, setCategoryName] = useState('');
-    const [invoice, setInvoice] = useState('1');
+    const [invoice, setInvoice] = useState('');
     const [report, setReport] = useState(0);
 
 
-    const handleSubmit = (event : FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(categoryName, invoice, report);
+        const category: RiskCategory = {
+            category_name: categoryName,
+            category_id: '',
+            report: report.toString(),
+            invoice: invoice.toString()
+        }
+        console.log(category)
+        // await createCategory(category);
+        // window.location.reload();
+        
     }
     return (
         <>

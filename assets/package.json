@@ -5,6 +5,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.8.1",
     "html-webpack-plugin": "^5.5.3",
+    "jspdf": "^2.5.1",
     "react": "^18.0.0",
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.0.0",

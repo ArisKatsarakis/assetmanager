@@ -37,4 +37,3 @@ class Risk
     return $wpdb->get_results($sql);
   }
 }
-

@@ -1,6 +1,4 @@
 <?php
-
-
 defined('ABSPATH') or die('Hey, you can go away ?');
 class adminView
 {

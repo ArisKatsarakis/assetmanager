@@ -2,6 +2,7 @@
 
 namespace Serv;
 
+use Ent\Assesment;
 use Ent\RiskCategory;
 use Ent\Risk;
 
@@ -35,6 +36,17 @@ class RiskController
       'callback' => [$this, 'create_risk'],
       'permission_callback' => [$this, 'callback'],
     ]);
+    register_rest_route('assetmanagerplugin/v1', '/assessments/(?P<riskId>[0-9]+)', [
+      'methods' => 'POST',
+      'callback' => [$this, 'create_assessment'],
+      'permission_callback' => [$this, 'callback'],
+    ]);
+  }
+  function create_assessment($request)
+  {
+    $riskId = $request['riskId'];
+    $body = json_decode($request->get_body(), true);
+    return  Assesment::insert_assessment($riskId, $body);
   }
 
   function create_risk($request)
@@ -74,4 +86,3 @@ class RiskController
     return true;
   }
 }
-
